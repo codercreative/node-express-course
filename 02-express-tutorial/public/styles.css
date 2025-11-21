@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #f6f0e2;
+  font-family: "Lato", sans-serif;
+}
+
+h1 {
+  margin-top: 3em;
+}
+
+.price {
+  margin-top: 0.5em;
+}
+
+header,
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.product-card {
+  margin: 1em;
+}
+
+.btn {
+  font-family: inherit;
+  margin: 3em;
+  padding: 0.8em 1.2em;
+  border-radius: 12px;
+  background-color: #f2b24a;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  border: 2px solid #f2b24a;
+  background-color: #f6f0e2;
+}
