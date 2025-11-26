@@ -2,10 +2,51 @@ console.log("Express Tutorial");
 
 const express = require("express");
 const { products } = require("./data.js");
-
 const app = express();
+const peopleRouter = require("./routes/people.js");
 
-app.use(express.static("./public"));
+//middleware functions first and then the route methods below...
+const logger = (req, res, next) => {
+  const method = req.method;
+  const url = req.url;
+  const time = new Date().getFullYear();
+  console.log(method, url, time);
+  //res.send("Testing")
+  //MUST INCLUDE:
+  next();
+};
+
+//Running the logger for every request, so I don't have to repeat logging for every route
+app.use(logger);
+
+app.use(express.static("./methods-public"));
+
+//Parses data from POST requests
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use("/api/people", peopleRouter);
+
+app.post("/login", (req, res) => {
+  const { name } = req.body;
+  if (name) {
+    return res.status(200).send(`Welcome ${name}!`);
+  }
+
+  res.status(401).send("Please provide credentials.");
+});
+
+// app.get("/api/v1/people", (req, res) => {
+//   res.status(200).json(people);
+// });
+
+// app.post("/api/v1/people", (req, res) => {
+//   if (req.body.name) {
+//     people.push({ id: people.length + 1, name: req.body.name });
+//     res.status(201).json({ success: true, name: req.body.name });
+//   } else {
+//     res.status(400).json({ success: false, message: "Please provide a name" });
+//   }
+// });
 
 app.get("/api/v1/test", (req, res) => {
   res.json({ message: "It worked!" });
