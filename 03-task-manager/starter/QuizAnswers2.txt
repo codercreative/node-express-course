@@ -1,0 +1,11 @@
+1. I created an asyncWrapper function in order to simplify the code in tasks.js per the DRY principle. The try / catch error handling was pulled out of tasks.js and moved into the asyncWrapper function, and I was able to do that via the help of the built-in next function in Express.
+
+2.
+const getTask = asyncWrapper(async (req, res, next) => {  
+  const { id: taskID } = req.params;  
+  const task = await Task.findOne({ _id: taskID });  
+  if (!task) {  
+    return next(new CustomAPIError(`No task with id: ${taskID}`, 404)) 
+  }  
+  res.status(200).json({ task });  
+}); 
